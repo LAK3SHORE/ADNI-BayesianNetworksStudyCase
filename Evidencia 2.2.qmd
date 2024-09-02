@@ -1,0 +1,53 @@
+---
+title: "Evidencia 2"
+author: "Adara Pulido"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library (bnlearn)
+library(readr)
+```
+
+```{r}
+data = read_csv("new_data2 (2).csv")
+head(data)
+```
+
+```{r}
+dag = model2network("[AGE][FDG][ABETA][TAU][PTAU][APOE4|TAU]")
+```
+
+```{r}
+library(BiocManager)
+library(Rgraphviz)
+```
+
+```{r}
+graphviz.plot(dag, shape = "ellipse")
+```
+
+```{r}
+dx_fit = bn.fit(dag, data = data)
+```
+
+```{r}
+mod_gam_APOE4 = gam(APOE4 ~ s(TAU, k=3), data = data, method ="REML")
+
+
+mod_AGE = lm(AGE ~ 1, data = data)
+mod_TAU = lm(TAU ~ 1, data = data)
+mod_PTAU=lm(PTAU ~ 1, data = data)
+mod_FDG=lm(FDG ~  1, data = data)
+mod_ABETA=lm(ABETA ~ 1, data = data)
+```
+
+```{r}
+-1/2*(BIC(mod_AGE)+BIC(mod_gam_APOE4)+BIC(mod_TAU)+BIC(mod_PTAU)+BIC(mod_FDG)+BIC(mod_ABETA))
+```
+
+```{r}
+-1/2*(AIC(mod_AGE)+AIC(mod_gam_APOE4)+AIC(mod_TAU)+AIC(mod_PTAU)+AIC(mod_FDG)+AIC(mod_ABETA))
+```
