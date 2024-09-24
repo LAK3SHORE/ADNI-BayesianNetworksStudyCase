@@ -1,6 +1,6 @@
 ---
-title: "Evidencia 2"
-author: "Adara Pulido"
+title: "Evidencia 2 - ADNI Study Case"
+author: "Cristóbal Estrada Salinas"
 format: html
 editor: visual
 ---
